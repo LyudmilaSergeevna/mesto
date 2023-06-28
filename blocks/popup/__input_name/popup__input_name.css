@@ -1,4 +1,4 @@
-.popup__container_input_name {
+.popup__input_name {
   border-style: none;
   min-width: 358px;
   border-bottom: 1px solid rgba(0,0,0,.2);
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 767px) {
-  .popup__container_input_name {
+  .popup__input_name {
     min-width: 238px;
   }
 }
