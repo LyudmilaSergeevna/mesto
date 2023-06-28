@@ -1,14 +1,16 @@
-.popup__about {
+.popup__container_input_about {
   border-style: none;
-  max-width: 358px;
+  min-width: 358px;
   border-bottom: 1px solid rgba(0,0,0,.2);
   margin-bottom: 48px;
   font-size: 14px;
+  line-height: 14px;
+  padding-bottom: 13px;
 }
 
 @media (max-width: 767px) {
-  .popup__about {
-    max-width: 238px;
+  .popup__container_input_about {
+    min-width: 238px;
     margin-bottom: 45px;
   }
 }

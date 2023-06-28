@@ -6,14 +6,20 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 17px;
+  gap: 20px 17px;
+}
+
+@media (max-width: 879px) {
+  .elements {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 767px) {
   .elements {
     max-width: 282px;
     gap: 20px;
-    margin-top: 36;
+    margin-top: 36px;
     margin-bottom: 48px;
     }
 }

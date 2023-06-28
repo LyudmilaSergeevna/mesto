@@ -1,4 +1,4 @@
-.submitButton {
+.popup__submit-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -9,18 +9,20 @@
   background-color: #000;
   color: #fff;
   font-size: 18px;
+  line-height: 18px;
   transition: ease .4s;
 }
 
-.submitButton:hover {
+.popup__submit-button:hover {
   background-color: rgba(0,0,0,.8);
   cursor: pointer;
 }
 
 @media (max-width: 767px) {
-  .submitButton {
+  .popup__submit-button {
     width: 238px;
     height: 46px;
     font-size: 14px;
+    line-height: 14px;
   }
 }

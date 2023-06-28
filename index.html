@@ -3,68 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./vendor/normalize.css">
   <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto Russia</title>
 </head>
 <body class="page">
   <div class="root">
     <header class="header">
-      <img class="header__logo" src="./images/logo_place_header.png" alt="Логотип Mesto Russia">
+      <img class="header__logo" src="./images/Logo.svg" alt="Логотип Mesto Russia">
     </header>
     <main class="content">
       <section class="profile">
+        <div class="profile__data"> <!-- обертка для выравнивания по макету, т.к. для кнопки "add" нельзя исп-ть absolute (лучшее что смогла придумать) -->
         <img class="profile__avatar" src="./images/Avatar.jpg" alt="Фотография пользователя">
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__about">Исследователь океана</p>
-          <button class="editButton" type="button"></button>          
+          <div class="profile__info-part"> <!-- ещё одна обертка д/выравнивания, т.к. для кнопки "edit" нельзя исп-ть absolute -->
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button"></button>
+          </div>  
+          <p class="profile__about">Исследователь океана</p>       
         </div>
-        <button class="addButton" type="button"></button> 
+        </div>
+        <button class="profile__add-button" type="button"></button> 
       </section>
       <section class="elements">
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg">
+        <article class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="heartButton" type="button"></button>
+            <button class="element__heart-button" type="button"></button>
           </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg">
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="heartButton"></button>
+            <button class="element__heart-button"></button>
           </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg">
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="heartButton"></button>
+            <button class="element__heart-button"></button>
           </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg">
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="heartButton"></button>
+            <button class="element__heart-button"></button>
           </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg">
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="heartButton"></button>
+            <button class="element__heart-button"></button>
           </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg">
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
           <div class="element__info">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="heartButton"></button>
+            <button class="element__heart-button"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
@@ -72,13 +75,15 @@
     </footer>
   </div>
   <div class="popup">
-    <form class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__name" type="text" value="Жак-Ив Кусто">
-      <input class="popup__about" type="text" value="Исследователь океана">
-      <button class="submitButton" type="button">Сохранить</button>
-      <button class="closeButton" type="button"></button>
-    </form>
+    <div class="popup__container" name="editPopup">
+      <button class="popup__close-button" type="button"></button>
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form>
+      <input class="popup__container_input_name" type="text" name="inputName" value="Жак-Ив Кусто">
+      <input class="popup__container_input_about" type="text" name="inputAbout" value="Исследователь океана">
+      <button class="popup__submit-button" type="submit">Сохранить</button>
+      </form>
+    </div>
   </div>
   <script src="./scripts/index.js"></script>
 </body>

@@ -1,27 +1,31 @@
 const popup = document.querySelector('.popup')
-const editButton = document.querySelector('.editButton')
-const closeButton = popup.querySelector('.closeButton')
-const submitButton = popup.querySelector('.submitButton')
+const editButton = document.querySelector('.profile__edit-button')
+const closeButton = document.querySelector('.popup__close-button')
 let formEditProfile = document.querySelector('.popup__container')
-let nameInput = formEditProfile.querySelector('.popup__name')
-let aboutInput = formEditProfile.querySelector('.popup__about')
+let nameInput = formEditProfile.querySelector('.popup__container_input_name')
+let aboutInput = formEditProfile.querySelector('.popup__container_input_about')
 let profile = document.querySelector('.profile')
 let nameProfile = profile.querySelector('.profile__name')
 let aboutProfile = profile.querySelector('.profile__about')
 
-
-function togglePopup() {
-  popup.classList.toggle('popup_opened')
+function openPopup() {
+  popup.classList.add('popup_opened')
+  nameInput.value = nameProfile.textContent
+  aboutInput.value = aboutProfile.textContent
 }
 
-editButton.addEventListener('click', togglePopup)
-closeButton.addEventListener('click', togglePopup)
+function closePopup() {
+  popup.classList.remove('popup_opened')
+}
+
+editButton.addEventListener('click', openPopup)
+closeButton.addEventListener('click', closePopup)
 
 function saveProfile (evt) {
   evt.preventDefault()
   nameProfile.textContent = nameInput.value
   aboutProfile.textContent = aboutInput.value
-  togglePopup()
+  closePopup()
 }
 
-submitButton.addEventListener('click', saveProfile)
+formEditProfile.addEventListener('submit',saveProfile)

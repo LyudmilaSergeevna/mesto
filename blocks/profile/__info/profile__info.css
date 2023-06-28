@@ -2,18 +2,17 @@
   margin: 0;
   padding: 0;
   min-width: 336px;
-  min-height: 73px;
-  margin-right: 18px;
   position: relative;
+  margin-top: 22px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
 @media (max-width: 767px) {
   .profile__info {
     margin-right: 0;
     min-width: 282px;
+    min-height: 54px;
     margin-top: 26px;
     margin-bottom: 36px;
   }
