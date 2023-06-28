@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./vendor/normalize.css">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto Russia</title>
+</head>
+<body class="page">
+  <div class="root">
+    <header class="header">
+      <img class="header__logo" src="./images/logo_place_header.png" alt="Логотип Mesto Russia">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/Avatar.jpg" alt="Фотография пользователя">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__about">Исследователь океана</p>
+          <button class="editButton" type="button"></button>          
+        </div>
+        <button class="addButton" type="button"></button> 
+      </section>
+      <section class="elements">
+        <div class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg">
+          <div class="element__info">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="heartButton" type="button"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg">
+          <div class="element__info">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="heartButton"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg">
+          <div class="element__info">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="heartButton"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg">
+          <div class="element__info">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="heartButton"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg">
+          <div class="element__info">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="heartButton"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="./images/karachaevsk.jpg">
+          <div class="element__info">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="heartButton"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
+    </footer>
+  </div>
+  <div class="popup">
+    <form class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input class="popup__name" type="text" value="Жак-Ив Кусто">
+      <input class="popup__about" type="text" value="Исследователь океана">
+      <button class="submitButton" type="button">Сохранить</button>
+      <button class="closeButton" type="button"></button>
+    </form>
+  </div>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>

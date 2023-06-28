@@ -1,0 +1,31 @@
+.addButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  width: 150px;
+  height: 50px;
+  border: 2px solid #fff;
+  background-image: url(../../images/Plus.png);
+  background-color: #000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 22px;
+  position: absolute;
+  top: center;
+  right: 0;
+  transition: ease .4s;
+}
+
+.addButton:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .addButton {
+    width: 282px;
+    bottom: 0;
+    position: relative;
+  }
+}

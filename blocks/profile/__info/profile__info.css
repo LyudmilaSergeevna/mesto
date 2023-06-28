@@ -1,0 +1,19 @@
+.profile__info {
+  margin: 0;
+  padding: 0;
+  min-width: 336px;
+  min-height: 73px;
+  margin-right: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@media (max-width: 767px) {
+  .profile__info {
+    min-width: 282px;
+    margin-top: 26px;
+    margin-bottom: 36px;
+  }
+}
