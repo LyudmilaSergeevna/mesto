@@ -1,7 +1,8 @@
 const popup = document.querySelector('.popup')
 const editButton = document.querySelector('.profile__edit-button')
 const closeButton = document.querySelector('.popup__close-button')
-let formEditProfile = document.querySelector('.popup__container')
+formEditProfile = document.querySelector('.popup__container')
+let submitForm = formEditProfile.querySelector('.popup__form')
 let nameInput = formEditProfile.querySelector('.popup__input_type_name')
 let aboutInput = formEditProfile.querySelector('.popup__input_type_about')
 let profile = document.querySelector('.profile')
@@ -28,4 +29,4 @@ function saveProfile (evt) {
   closePopup()
 }
 
-formEditProfile.addEventListener('submit',saveProfile)
+submitForm.addEventListener('submit',saveProfile)

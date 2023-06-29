@@ -6,13 +6,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center; /* не смогла найти в каком браузере контент не центрирован, он везде по центру за счет этого св-ва */
   gap: 20px 17px;
-}
-
-@media (max-width: 879px) {
-  .elements {
-    justify-content: center;
-  }
 }
 
 @media (max-width: 767px) {
