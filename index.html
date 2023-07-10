@@ -13,10 +13,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__data"> <!-- обертка для выравнивания по макету, т.к. для кнопки "add" нельзя исп-ть absolute (лучшее что смогла придумать) -->
+        <div class="profile__data"> 
         <img class="profile__avatar" src="./images/Avatar.jpg" alt="Фотография пользователя">
         <div class="profile__info">
-          <div class="profile__info-part"> <!-- ещё одна обертка д/выравнивания, т.к. для кнопки "edit" нельзя исп-ть absolute -->
+          <div class="profile__info-part">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
           </div>  
@@ -42,7 +42,7 @@
       <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div class="popup popup-edit"><!--пришлось указать, чтобы можно было три раза не копировать стили для кнопки close-->
     <div class="popup__container">
       <button class="popup__close-button popup-edit__close-button" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
