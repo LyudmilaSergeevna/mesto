@@ -26,48 +26,16 @@
         <button class="profile__add-button" type="button"></button> 
       </section>
       <section class="elements">
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="element__heart-button" type="button"></button>
-          </div>
+        <template id="element">
+          <article class="element">
+            <img class="element__image">
+            <button class="element__delete-button" type="button"></button>
+            <div class="element__info">
+              <h2 class="element__title"></h2>
+              <button class="element__heart-button" type="button"></button>
+            </div> 
         </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="element__heart-button" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="element__heart-button" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="element__heart-button" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="element__heart-button" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фотография церкви в горах Карачаево-Черкесии">
-          <div class="element__info">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button class="element__heart-button" type="button"></button>
-          </div>
-        </article>
+        </template>
       </section>
     </main>
     <footer class="footer">
@@ -76,13 +44,31 @@
   </div>
   <div class="popup">
     <div class="popup__container">
-      <button class="popup__close-button" type="button"></button>
+      <button class="popup__close-button popup-edit__close-button" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="formPopup">
         <input class="popup__input popup__input_type_name" type="text" name="inputName" value=" " title=" ">
         <input class="popup__input popup__input_type_about" type="text" name="inputAbout" value=" " title=" ">
         <button class="popup__submit-button" type="submit">Сохранить</button>
       </form>
+    </div>
+  </div>
+  <div class="popup popup-add">
+    <div class="popup__container popup-add__container">
+      <button class="popup__close-button popup-add__close-button" type="button"></button>
+      <h3 class="popup__title popup-add__title">Новое место</h3>
+      <form class="popup-add__form" name="formPopupAdd">
+        <input class="popup__input popup__input_type_title" type="text" name="inputTitle" value=" " title=" ">
+        <input class="popup__input popup__input_type_link" type="text" name="inputLink" value=" " title=" ">
+        <button class="popup__submit-button popup-add__submit-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup-photo">
+    <div class="popup-photo__container">
+      <img class="popup-photo__image" src="./images/Avatar.jpg">
+      <button class="popup__close-button popup-photo__close-button" type="button"></button>
+      <h2 class="popup-photo__title"></h2>
     </div>
   </div>
   <script src="./scripts/index.js"></script>
