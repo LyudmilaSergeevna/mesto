@@ -21,37 +21,43 @@ const titleInput = document.querySelector('.popup__input_type_title')
 const linkInput = document.querySelector('.popup__input_type_link')
 
 const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button')
-let photo = popupPhoto.querySelector('.popup-photo__image')
-let title = popupPhoto.querySelector('.popup-photo__title')
+const photo = popupPhoto.querySelector('.popup-photo__image')
+const title = popupPhoto.querySelector('.popup-photo__title')
 
 const cardsContainer = document.querySelector('.elements')
-let templateElement = document.querySelector('#element').content
-
+const templateElement = document.querySelector('#element').content
 
 initialCards.forEach((item) => {
-  let card = createCard(item.name,item.link)
+  const card = createCard(item.name,item.link)
   cardsContainer.prepend(card)
 })
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
-  nameInput.value = nameProfile.textContent
-  aboutInput.value = aboutProfile.textContent
-  titleInput.value = ''
-  linkInput.value = ''
-  titleInput.placeholder = 'Название'
-  linkInput.placeholder = 'Ссылка на картинку'
-  
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
 }
 
-editButton.addEventListener('click', () => {openPopup(popupEdit)})
+function openEditPopup() {
+  nameInput.value = nameProfile.textContent
+  aboutInput.value = aboutProfile.textContent
+  openPopup(popupEdit)
+}
+
+function openAddPopup() {
+  titleInput.value = '' /*если добавить их в сабмит, они не будут очищаться в случае не отправки а просто закрытия формы*/
+  linkInput.value = ''
+  titleInput.placeholder = 'Название' /*почему-то не работают находясь в верстке*/
+  linkInput.placeholder = 'Ссылка на картинку'
+  openPopup(popupAdd)
+}
+
+editButton.addEventListener('click', () => {openEditPopup()})
 closeButtonEditPopup.addEventListener('click', () => {closePopup(popupEdit)})
 
-addButton.addEventListener('click', () => {openPopup(popupAdd)})
+addButton.addEventListener('click', () => {openAddPopup()})
 closeButtonAddPopup.addEventListener('click', () => {closePopup(popupAdd)})
 
 closeButtonPhotoPopup.addEventListener('click', () => {closePopup(popupPhoto)})
@@ -73,25 +79,26 @@ function createCard(name, link) {
   cardImage.src =  link
   const cardTitle = card.querySelector('.element__title')
   cardTitle.textContent = name
+  cardImage.alt = `Изoбражение ${cardTitle.textContent}`
+  
   heartButton.addEventListener('click', function() {
     heartButton.classList.toggle('element__heart-button_active')
   })
   deleteButton.addEventListener('click', function() {
-    let element = deleteButton.closest('.element')
+    const element = deleteButton.closest('.element')
     element.remove()
   })
   cardImage.addEventListener('click', function() {
-    popupPhoto.classList.add('popup_opened')
+    openPopup(popupPhoto)
     photo.src = cardImage.src
     title.textContent = cardTitle.textContent
-    photo.alt = `Изoбражение ${title.textContent}`
   })
   return(card)
   }
 
 function submitCard(evt) {
   evt.preventDefault()
-  let card = createCard(titleInput.value,linkInput.value)
+  const card = createCard(titleInput.value,linkInput.value)
   cardsContainer.prepend(card)
   closePopup(popupAdd)
 }  
