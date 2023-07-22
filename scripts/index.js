@@ -4,7 +4,7 @@ const validationConfig = {
   submitButtonSelector: '.popup__submit-button',
   inactiveButtonClass: 'popup__submit-button_inactive',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
+  errorClass: 'popup__input_error_active'
 }
 
 const popupEdit = document.querySelector('.popup-edit')
