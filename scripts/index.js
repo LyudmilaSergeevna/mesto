@@ -1,10 +1,18 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
+
 const popupEdit = document.querySelector('.popup-edit')
 const popupAdd = document.querySelector('.popup-add')
 const popupPhoto = document.querySelector('.popup-photo')
 
 const editButton = document.querySelector('.profile__edit-button')
 const closeButtonEditPopup = document.querySelector('.popup-edit__close-button')
-
 
 const formEditProfile = document.querySelector('.popup__form')
 const nameInput = document.querySelector('.popup__input_type_name')
@@ -19,6 +27,7 @@ const closeButtonAddPopup = document.querySelector('.popup-add__close-button')
 const formAddElement = document.querySelector('.popup-add__form')
 const titleInput = document.querySelector('.popup__input_type_title')
 const linkInput = document.querySelector('.popup__input_type_link')
+const submitAddButton = formAddElement.querySelector('.popup__submit-button')
 
 const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button')
 const photo = popupPhoto.querySelector('.popup-photo__image')
@@ -41,15 +50,17 @@ function closePopup(popup) {
 }
 
 function openEditPopup() {
+  formEditProfile.reset() 
   nameInput.value = nameProfile.textContent
   aboutInput.value = aboutProfile.textContent
   openPopup(popupEdit)
 }
 
 function openAddPopup() {
-  titleInput.value = '' /*если добавить их в сабмит, они не будут очищаться в случае не отправки а просто закрытия формы*/
+  submitAddButton.classList.add('popup__submit-button_inactive') 
+  titleInput.value = '' 
   linkInput.value = ''
-  titleInput.placeholder = 'Название' /*почему-то не работают находясь в верстке*/
+  titleInput.placeholder = 'Название'
   linkInput.placeholder = 'Ссылка на картинку'
   openPopup(popupAdd)
 }
@@ -105,4 +116,26 @@ function submitCard(evt) {
 
 formAddElement.addEventListener('submit', submitCard)
 
+enableValidation(validationConfig)
 
+const pop = document.querySelector('.popup_opened')
+function clickOverlay(evt) {
+  const popup = document.querySelector('.popup_opened')
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(popup)
+  }
+} 
+
+const popupArray = Array.from(document.querySelectorAll('.popup'))
+popupArray.forEach((item) => {
+  item.addEventListener('click', (evt) => {clickOverlay(evt)})
+  })
+
+function isItEsc(evt) {
+  if (evt.keyCode===27) {
+    const popup = document.querySelector('.popup_opened')
+    closePopup(popup)
+  }
+}
+
+document.addEventListener('keypress',isItEsc)    
