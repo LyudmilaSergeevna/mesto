@@ -1,4 +1,4 @@
-const enableValidation = () => {
+const enableValidation = (validationConfig) => {  /*наставник на livecod-е показывал именно эту реализацию, просто обьект передается через его имя при вызове функции в index.js (строка 119), если это в корне неправильно объясните пожалуйста почему? */
   const formArray = Array.from(document.querySelectorAll(validationConfig.formSelector))
   formArray.forEach((formElement) => {
     setEventListeners(formElement)

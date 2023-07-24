@@ -43,10 +43,12 @@ initialCards.forEach((item) => {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
+  document.addEventListener('keypress',isItEsc)
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
+  document.removeEventListener('keypress',isItEsc)
 }
 
 function openEditPopup() {
@@ -57,11 +59,9 @@ function openEditPopup() {
 }
 
 function openAddPopup() {
-  submitAddButton.classList.add('popup__submit-button_inactive') 
+  submitAddButton.classList.add('popup__submit-button_inactive') /* эта кнопка disabled в html*/
   titleInput.value = '' 
   linkInput.value = ''
-  titleInput.placeholder = 'Название'
-  linkInput.placeholder = 'Ссылка на картинку'
   openPopup(popupAdd)
 }
 
@@ -90,7 +90,7 @@ function createCard(name, link) {
   cardImage.src =  link
   const cardTitle = card.querySelector('.element__title')
   cardTitle.textContent = name
-  cardImage.alt = `Изoбражение ${cardTitle.textContent}`
+  cardImage.alt = `Изoбражение ${cardTitle.textContent}` 
   
   heartButton.addEventListener('click', function() {
     heartButton.classList.toggle('element__heart-button_active')
@@ -101,7 +101,7 @@ function createCard(name, link) {
   })
   cardImage.addEventListener('click', function() {
     openPopup(popupPhoto)
-    photo.src = cardImage.src
+    photo.src = cardImage.src /* alt добавляется в 91 строке */
     title.textContent = cardTitle.textContent
   })
   return(card)
@@ -118,11 +118,10 @@ formAddElement.addEventListener('submit', submitCard)
 
 enableValidation(validationConfig)
 
-const pop = document.querySelector('.popup_opened')
+/* забыла удалить :) */
 function clickOverlay(evt) {
-  const popup = document.querySelector('.popup_opened')
   if (evt.target.classList.contains('popup_opened')) {
-    closePopup(popup)
+    closePopup(evt.target)
   }
 } 
 
@@ -132,10 +131,8 @@ popupArray.forEach((item) => {
   })
 
 function isItEsc(evt) {
-  if (evt.keyCode===27) {
+  if (evt.key==="Escape") {
     const popup = document.querySelector('.popup_opened')
     closePopup(popup)
   }
-}
-
-document.addEventListener('keypress',isItEsc)    
+}  
