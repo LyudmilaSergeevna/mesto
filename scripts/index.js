@@ -1,3 +1,5 @@
+/* Спасибо за ревью :) такое подробное получаю в первый раз */
+
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -43,12 +45,12 @@ initialCards.forEach((item) => {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
-  document.addEventListener('keypress',isItEsc)
+  document.addEventListener('keydown',isItEsc)
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
-  document.removeEventListener('keypress',isItEsc)
+  document.removeEventListener('keydown',isItEsc)
 }
 
 function openEditPopup() {
@@ -59,7 +61,8 @@ function openEditPopup() {
 }
 
 function openAddPopup() {
-  submitAddButton.classList.add('popup__submit-button_inactive') /* эта кнопка disabled в html*/
+  submitAddButton.classList.add('popup__submit-button_inactive')
+  submitAddButton.disabled = true
   titleInput.value = '' 
   linkInput.value = ''
   openPopup(popupAdd)
@@ -101,8 +104,9 @@ function createCard(name, link) {
   })
   cardImage.addEventListener('click', function() {
     openPopup(popupPhoto)
-    photo.src = cardImage.src /* alt добавляется в 91 строке */
+    photo.src = cardImage.src
     title.textContent = cardTitle.textContent
+    photo.alt = `Изoбражение ${title.textContent}`
   })
   return(card)
   }
@@ -116,9 +120,8 @@ function submitCard(evt) {
 
 formAddElement.addEventListener('submit', submitCard)
 
-enableValidation(validationConfig)
+enableValidation(validationConfig) 
 
-/* забыла удалить :) */
 function clickOverlay(evt) {
   if (evt.target.classList.contains('popup_opened')) {
     closePopup(evt.target)
