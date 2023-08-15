@@ -1,13 +1,5 @@
-/* Спасибо за ревью :) такое подробное получаю в первый раз */
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
+import Card from './Card.js';
+import { validationConfig, FormValidator } from './FormValidator.js';
 
 const popupEdit = document.querySelector('.popup-edit')
 const popupAdd = document.querySelector('.popup-add')
@@ -32,18 +24,16 @@ const linkInput = document.querySelector('.popup__input_type_link')
 const submitAddButton = formAddElement.querySelector('.popup__submit-button')
 
 const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button')
-const photo = popupPhoto.querySelector('.popup-photo__image')
-const title = popupPhoto.querySelector('.popup-photo__title')
 
 const cardsContainer = document.querySelector('.elements')
 const templateElement = document.querySelector('#element').content
 
-initialCards.forEach((item) => {
+/*initialCards.forEach((item) => {
   const card = createCard(item.name,item.link)
   cardsContainer.prepend(card)
-})
+})*/
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown',isItEsc)
 }
@@ -85,42 +75,37 @@ function saveProfile (evt) {
 
 formEditProfile.addEventListener('submit',saveProfile)
 
-function createCard(name, link) {
-  const card = templateElement.querySelector('.element').cloneNode(true)
-  const heartButton = card.querySelector('.element__heart-button')
-  const deleteButton = card.querySelector('.element__delete-button')
-  const cardImage = card.querySelector('.element__image')
-  cardImage.src =  link
-  const cardTitle = card.querySelector('.element__title')
-  cardTitle.textContent = name
-  cardImage.alt = `Изoбражение ${cardTitle.textContent}` 
-  
-  heartButton.addEventListener('click', function() {
-    heartButton.classList.toggle('element__heart-button_active')
-  })
-  deleteButton.addEventListener('click', function() {
-    const element = deleteButton.closest('.element')
-    element.remove()
-  })
-  cardImage.addEventListener('click', function() {
-    openPopup(popupPhoto)
-    photo.src = cardImage.src
-    title.textContent = cardTitle.textContent
-    photo.alt = `Изoбражение ${title.textContent}`
-  })
-  return(card)
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link, '.element_type_default');
+  const cardElement = card.generateCard();
+  cardsContainer.prepend(cardElement);
+})
+
+
+const formArray = Array.from(document.querySelectorAll(validationConfig.formSelector))
+  formArray.forEach((formElement) => {
+    const classElement = new FormValidator(validationConfig, formElement)
+    classElement.enableValidation();
   }
+  );
 
 function submitCard(evt) {
   evt.preventDefault()
-  const card = createCard(titleInput.value,linkInput.value)
-  cardsContainer.prepend(card)
+  const card = new Card(titleInput.value, linkInput.value, '.element_type_default');
+  const cardElement = card.generateCard();
+  cardsContainer.prepend(cardElement);
   closePopup(popupAdd)
 }  
 
 formAddElement.addEventListener('submit', submitCard)
 
-enableValidation(validationConfig) 
+
+
+
+
+
+
+
 
 function clickOverlay(evt) {
   if (evt.target.classList.contains('popup_opened')) {
