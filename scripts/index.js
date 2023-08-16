@@ -28,15 +28,23 @@ const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button
 const cardsContainer = document.querySelector('.elements')
 const templateElement = document.querySelector('#element').content
 
-/*initialCards.forEach((item) => {
-  const card = createCard(item.name,item.link)
-  cardsContainer.prepend(card)
-})*/
-
 export function openPopup(popup) {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown',isItEsc)
 }
+
+/*function handleCardClick(name,link) { 
+  photo.src = link;
+  title.textContent = name;
+  photo.alt = `Изoбражение ${title.textContent}`
+  openPopup(popupPhoto) // она ж все равно будет обращаться к openPopup и ее тоже придется экспортировать
+}*/
+
+const validationAddForm = new FormValidator(validationConfig, formAddElement)
+validationAddForm.enableValidation();
+const validationEditForm = new FormValidator(validationConfig, formEditProfile)
+validationEditForm.enableValidation();
+
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
@@ -51,17 +59,22 @@ function openEditPopup() {
 }
 
 function openAddPopup() {
-  submitAddButton.classList.add('popup__submit-button_inactive')
   submitAddButton.disabled = true
   titleInput.value = '' 
   linkInput.value = ''
   openPopup(popupAdd)
 }
 
-editButton.addEventListener('click', () => {openEditPopup()})
+editButton.addEventListener('click', () => {
+  openEditPopup()
+  validationEditForm.resetValidation();
+})
 closeButtonEditPopup.addEventListener('click', () => {closePopup(popupEdit)})
 
-addButton.addEventListener('click', () => {openAddPopup()})
+addButton.addEventListener('click', () => {
+  openAddPopup();
+  validationAddForm.resetValidation();
+})
 closeButtonAddPopup.addEventListener('click', () => {closePopup(popupAdd)})
 
 closeButtonPhotoPopup.addEventListener('click', () => {closePopup(popupPhoto)})
@@ -76,36 +89,22 @@ function saveProfile (evt) {
 formEditProfile.addEventListener('submit',saveProfile)
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.element_type_default');
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+  cardsContainer.prepend(createCard(item.name, item.link));
 })
-
-
-const formArray = Array.from(document.querySelectorAll(validationConfig.formSelector))
-  formArray.forEach((formElement) => {
-    const classElement = new FormValidator(validationConfig, formElement)
-    classElement.enableValidation();
-  }
-  );
 
 function submitCard(evt) {
   evt.preventDefault()
-  const card = new Card(titleInput.value, linkInput.value, '.element_type_default');
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+  cardsContainer.prepend(createCard(titleInput.value, linkInput.value));
   closePopup(popupAdd)
 }  
 
+function createCard(name, link) {
+  const card = new Card(name, link, '.element_type_default');
+  const cardElement = card.generateCard();
+  return cardElement
+}
+
 formAddElement.addEventListener('submit', submitCard)
-
-
-
-
-
-
-
-
 
 function clickOverlay(evt) {
   if (evt.target.classList.contains('popup_opened')) {

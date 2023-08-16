@@ -1,10 +1,14 @@
 import { openPopup } from './index.js';
 
 class Card {
-  constructor(name, link, templateSelector) {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
+    this._popupPhoto = document.querySelector('.popup-photo')
+    this._photo = this._popupPhoto.querySelector('.popup-photo__image')
+    this._title = this._popupPhoto.querySelector('.popup-photo__title')
   }
 
   _getTemplate() {
@@ -14,32 +18,35 @@ class Card {
     .querySelector('.element')
     .cloneNode(true);
     return cardElement;
-
   }
 
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.element__image');
+    this._cardTitle = this._element.querySelector('.element__title');
+    this._heartButton = this._element.querySelector('.element__heart-button');
+    this._deleteButton = this._element.querySelector('.element__delete-button');
     this._setEventListeners();
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = `Изoбражение ${this._name}`;
-    this._element.querySelector('.element__title').textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = `Изoбражение ${this._name}`;
+    this._cardTitle.textContent = this._name;
     return this._element;
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__heart-button').addEventListener('click', () => {
+    this._heartButton.addEventListener('click', () => {
       this._likeCard();
     });
-    this._element.querySelector('.element__delete-button').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._deleteCard();
     });
-    this._element.querySelector('.element__image').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._openCard();
     })
   }
 
   _likeCard() {
-    this._element.querySelector('.element__heart-button').classList.toggle('element__heart-button_active')
+    this._heartButton.classList.toggle('element__heart-button_active')
   }
 
   _deleteCard() {
@@ -47,13 +54,10 @@ class Card {
   }
 
   _openCard() {
-    const popupPhoto = document.querySelector('.popup-photo')
-    const photo = popupPhoto.querySelector('.popup-photo__image')
-    const title = popupPhoto.querySelector('.popup-photo__title')
-    openPopup(popupPhoto)
-    photo.src = this._link;
-    title.textContent = this._name;
-    photo.alt = `Изoбражение ${title.textContent}`
+    openPopup(this._popupPhoto)
+    this._photo.src = this._link;
+    this._title.textContent = this._name;
+    this._photo.alt = `Изoбражение ${this._title.textContent}`
   }
 }
 
