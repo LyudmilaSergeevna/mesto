@@ -59,7 +59,6 @@ function openEditPopup() {
 }
 
 function openAddPopup() {
-  submitAddButton.disabled = true
   titleInput.value = '' 
   linkInput.value = ''
   openPopup(popupAdd)
