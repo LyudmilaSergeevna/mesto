@@ -1,7 +1,5 @@
-import { openPopup } from './index.js';
-
 class Card {
-  constructor(name, link, templateSelector, handleCardClick) {
+  constructor({name, link}, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
@@ -54,10 +52,7 @@ class Card {
   }
 
   _openCard() {
-    openPopup(this._popupPhoto)
-    this._photo.src = this._link;
-    this._title.textContent = this._name;
-    this._photo.alt = `Изoбражение ${this._title.textContent}`
+    this._handleCardClick()
   }
 }
 
