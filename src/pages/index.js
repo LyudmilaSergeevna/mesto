@@ -1,10 +1,11 @@
-import '../pages/index.css';
-import Card from './Card.js';
-import { initialCards } from './initial-cards.js';
-import { validationConfig, FormValidator } from './FormValidator.js';
-import Section from './Section.js';
-import {PopupWithForm, PopupWithImage} from './Popup.js';
-import UserInfo from './UserInfo.js'
+import './index.css';
+import Card from '../components/Card.js';
+import { initialCards } from '../scripts/initial-cards.js';
+import { validationConfig, FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js'
 
 const editButton = document.querySelector('.profile__edit-button')
 const formEditProfile = document.querySelector('.popup__form')
@@ -15,7 +16,7 @@ const formAddElement = document.querySelector('.popup-add__form')
 
 const popupImage = new PopupWithImage('.popup-photo')
 
-const popupAdd = new PopupWithForm({
+const popupAddCard = new PopupWithForm({
   popupSelector: '.popup-add', 
   submitForm: (data) => {
     const card = createCard(data)
@@ -25,7 +26,7 @@ const popupAdd = new PopupWithForm({
 
 const profile = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__about'})
 
-const popupEdit = new PopupWithForm({
+const popupEditProfile = new PopupWithForm({
  popupSelector: '.popup-edit', 
  submitForm: (data) => {
   profile.setUserInfo(data)
@@ -33,8 +34,8 @@ const popupEdit = new PopupWithForm({
  })
 
 popupImage.setEventListeners();
-popupAdd.setEventListeners();
-popupEdit.setEventListeners();
+popupAddCard.setEventListeners();
+popupEditProfile.setEventListeners();
 
 function handleCardClick(data) {
   popupImage.open(data);
@@ -46,7 +47,7 @@ const validationEditForm = new FormValidator(validationConfig, formEditProfile)
 validationEditForm.enableValidation();
 
 editButton.addEventListener('click', () => {
-  popupEdit.open();
+  popupEditProfile.open();
   const userInfo = profile.getUserInfo();
   nameInput.value = userInfo.name
   aboutInput.value = userInfo.info
@@ -54,7 +55,7 @@ editButton.addEventListener('click', () => {
 })
 
 addButton.addEventListener('click', () => {
-  popupAdd.open();
+  popupAddCard.open();
   validationAddForm.resetValidation();
 })
 
