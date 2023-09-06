@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto Russia</title>
+<script defer src="main.da00b7d76fcca1037d23.js"></script><link href="main.css" rel="stylesheet"></head>
+<body class="page">
+  <div class="root">
+    <header class="header">
+      <img class="header__logo" src="images/Logo.e1792cd1bf55c68d1538.svg" alt="Логотип Mesto Russia">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__data"> 
+        <img class="profile__avatar" src="images/Avatar.9a465d27cc4844854ee1.jpg" alt="Фотография пользователя">
+        <div class="profile__info">
+          <div class="profile__info-part">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button"></button>
+          </div>  
+          <p class="profile__about">Исследователь океана</p>       
+        </div>
+        </div>
+        <button class="profile__add-button" type="button"></button> 
+      </section>
+      <section class="elements">
+        <template id="element" class="element_type_default">
+          <article class="element">
+            <img class="element__image">
+            <button class="element__delete-button" type="button"></button>
+            <div class="element__info">
+              <h2 class="element__title"></h2>
+              <button class="element__heart-button" type="button"></button>
+            </div> 
+        </article>
+        </template>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
+    </footer>
+  </div>
+  <div class="popup popup-edit">
+    <div class="popup__container">
+      <button class="popup__close-button popup-edit__close-button" type="button"></button>
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form class="popup__form" name="formPopup" novalidate>
+        <input class="popup__input popup__input_type_name" type="text" name="name" value=" " title=" " minlength="2" maxlength="40" required>
+        <span class="popup__input-error name-error"></span>
+        <input class="popup__input popup__input_type_about" type="text" name="info" value=" " title=" " minlength="2" maxlength="200" required>
+        <span class="popup__input-error info-error"></span>
+        <button class="popup__submit-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup-add">
+    <div class="popup__container popup-add__container">
+      <button class="popup__close-button popup-add__close-button" type="button"></button>
+      <h3 class="popup__title popup-add__title">Новое место</h3>
+      <form class="popup__form popup-add__form" name="formPopupAdd" novalidate>
+        <input class="popup__input popup__input_type_title" type="text" name="name" value="" title=" " minlength="2" maxlength="30" required placeholder="Название">
+        <span class="popup__input-error name-error"></span>
+        <input class="popup__input popup__input_type_link" type="url" name="link" value="" title=" " required placeholder="Ссылка на картинку">
+        <span class="popup__input-error link-error"></span>
+        <button class="popup__submit-button popup-add__submit-button" type="submit" disabled>Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup-photo">
+    <div class="popup-photo__container">
+      <img class="popup-photo__image" src="#" alt="#">
+      <button class="popup__close-button popup-photo__close-button" type="button"></button>
+      <h2 class="popup-photo__title"></h2>
+    </div>
+  </div>
+</body>
+</html>
