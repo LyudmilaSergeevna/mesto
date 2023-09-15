@@ -1,12 +1,15 @@
 class Card {
-  constructor({name, link, _id}, templateSelector, handleCardClick, handleDeleteClick /*handleDeleteIcon*/ ) {
+  constructor({name, link, _id, likes,owner }, templateSelector, handleCardClick, handleDeleteClick, likeCard, unlikeCard) {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._likes = likes;
+    this._owner = owner;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    //this._handleDelete = handleDelete;
     this._handleDeleteClick = handleDeleteClick;
+    this._apiLikeCard = likeCard;
+    this._unlikeCard = unlikeCard;
     this._popupPhoto = document.querySelector('.popup-photo')
     this._photo = this._popupPhoto.querySelector('.popup-photo__image')
     this._title = this._popupPhoto.querySelector('.popup-photo__title')
@@ -28,6 +31,8 @@ class Card {
     this._heartButton = this._element.querySelector('.element__heart-button');
     this._deleteButton = this._element.querySelector('.element__delete-button');
     this._likeTotal = this._element.querySelector('.element__like-total');
+    this._likeTotal.value = this._likes.length;
+    this._getId();
     this._setEventListeners();
     this._cardImage.src = this._link;
     this._cardImage.alt = `Изoбражение ${this._name}`;
@@ -37,11 +42,10 @@ class Card {
 
   _setEventListeners() {
     this._heartButton.addEventListener('click', () => {
-      this._likeCard();
+      this._likeCard(this.id);
     });
     this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteClick();
-      //this._handleDeleteCard();
+      this._handleDeleteClick(this._id);
     });
     this._cardImage.addEventListener('click', () => {
       this._openCard();
@@ -50,18 +54,13 @@ class Card {
 
   _likeCard() {
    if (this._heartButton.classList.contains('element__heart-button_active')) {
+      this._unlikeCard(this._id)
       this._heartButton.classList.remove('element__heart-button_active')
-      this._likeTotal.value --;
     } else {
     this._heartButton.classList.add('element__heart-button_active')
-    this._likeTotal.value ++ ;
+    this._apiLikeCard(this._id)
   }
-    //this._heartButton.classList.toggle('element__heart-button_active')
   }
-
-  /*handleDeleteCard() {
-    this._handleDelete(this._id)
-  }*/
 
   _deleteCard() {
     this._element.remove()
@@ -70,6 +69,18 @@ class Card {
   _openCard() {
     this._handleCardClick()
   }
+
+  _likesTotal(likes) {
+    this._likeTotal.value = likes
+  }
+
+  _getId() {
+  const myId = 'ff3a94ef6f31188899f3c37a';
+  if (this._owner._id !== myId) {
+  this._deleteButton.setAttribute("style", "display: none;")    
+  }
+}
+  
 }
 
 export default Card;

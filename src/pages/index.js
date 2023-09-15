@@ -2,7 +2,6 @@ import './index.css';
 import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import {PopupDelete} from '../components/PopupDelete.js';
-import { initialCards } from '../scripts/initial-cards.js';
 import { validationConfig, FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
@@ -18,10 +17,11 @@ const formAddElement = document.querySelector('.popup-add__form')
 const userName = document.querySelector('.profile__name')
 const userInfo = document.querySelector('.profile__about')
 const userAvatar = document.querySelector('.profile__avatar')
+const formAvatarChange = document.querySelector('.popup-avatar__form')
+const avatarOverlay= document.querySelector('.profile__avatar-overlay')
 
 const popupImage = new PopupWithImage('.popup-photo')
-const popupDelete = new PopupDelete('.popup-delete' /*() => handleDeleteAfterYes()*/)
-
+const popupDelete = new PopupDelete('.popup-delete')
 
 const optionsApi = {
   url: 'https://nomoreparties.co/v1/cohort-75',
@@ -55,11 +55,6 @@ api.getCards()
   cardList.renderItems(res);
 })
 
-
-//.then((res) => {
-  
-//})
-
 const popupAddCard = new PopupWithForm({
   popupSelector: '.popup-add', 
   submitForm: (data) => {
@@ -71,7 +66,7 @@ const popupAddCard = new PopupWithForm({
   }
 })
 
-const profile = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__about'})
+const profile = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__about', avatarSelector: '.profile__avatar'})
 
 const popupEditProfile = new PopupWithForm({
  popupSelector: '.popup-edit', 
@@ -80,46 +75,35 @@ const popupEditProfile = new PopupWithForm({
   .then((res) => {
     profile.setUserInfo(res)
   })
-  //profile.setUserInfo(data)
-
 }
  })
 
  const popupAvatar = new PopupWithForm({
   popupSelector: '.popup-avatar', 
-  submitForm: (data) => {
-   api.patchUserInfo(data)
+  submitForm: (data) => { 
+   api.patchUserAvatar(data)
    .then((res) => {
-     profile.setUserInfo(res)
+    profile.setUserAvatar(res)
    })
  }
   })
-
- //api.likeCard(data)
- //.then((res) => {
-  //console.log(res)
- //})
 
 popupImage.setEventListeners();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupDelete.setEventListeners();
+popupAvatar.setEventListeners();
 
 function handleCardClick(data) {
   popupImage.open(data);
 }
 
-//function handleDeleteClick(data) {
-  //console.log(id);
- // popupDelete.open(data);
-
-//}
-
-
 const validationAddForm = new FormValidator(validationConfig, formAddElement)
 validationAddForm.enableValidation();
 const validationEditForm = new FormValidator(validationConfig, formEditProfile)
 validationEditForm.enableValidation();
+const validationAvatarForm = new FormValidator(validationConfig, formAvatarChange)
+validationAvatarForm.enableValidation();
 
 editButton.addEventListener('click', () => {
   popupEditProfile.open();
@@ -134,37 +118,35 @@ addButton.addEventListener('click', () => {
   validationAddForm.resetValidation();
 })
 
-/*const cardList = new Section ({
-  items: initialCards,
-  renderer: (data) => {
-    const card = createCard(data);
-    cardList.addItem(card)
-  },
-},
-'.elements'
-)
-
-cardList.renderItems();*/
-
+avatarOverlay.addEventListener('click', () => {
+  popupAvatar.open();
+  validationAvatarForm.resetValidation();
+})
 
 function createCard(data) {
   const card = new Card(data, '.element_type_default', () => handleCardClick(data), (id) => {
     popupDelete.open()
-    popupDelete.setAction((id) => 
+    popupDelete.setAction(() => 
     api.deleteCard(id)
       .then(() => {
         card._deleteCard()
   }))
+}, (id) => {
+  api.likeCard(id)
+  .then ((res) => {
+    card._likesTotal(res.likes.length ++)
+  })
+}, (id) => {
+  api.unlikeCard(id)
+  .then ((res) => {
+    console.log(res)
+    if (!res.likes.length === 0) {
+    card._likesTotal(res.likes.length --)
+    } else { 
+      card._likesTotal(res.likes.length)
+    }
+  })
 });
   const cardElement = card.generateCard();
   return cardElement
 }
-
-
-//function handleDeleteAfterYes(id) {
- // api.deleteCard(id)
-  //.then(() => {
-  
-  //})
- // }
-

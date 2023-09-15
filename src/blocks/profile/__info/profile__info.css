@@ -4,6 +4,7 @@
   min-width: 336px;
   position: relative;
   margin-top: 22px;
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
 }
