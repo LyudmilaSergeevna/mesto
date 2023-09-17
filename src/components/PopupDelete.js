@@ -3,7 +3,7 @@ import { Popup } from './Popup.js'
 export class PopupDelete extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    this._popupYesButton = this._popup.querySelector('.popup-delete__submit-button');
+    this._popupForm = this._popup.querySelector('.popup-delete__form')
   }
 
   setAction(action) {
@@ -12,10 +12,9 @@ export class PopupDelete extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupYesButton.addEventListener('click', (evt) => {
+    this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault()
       this._submit()
-      this.close()
     })
   }
 }

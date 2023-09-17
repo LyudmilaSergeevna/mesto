@@ -14,9 +14,6 @@ const nameInput = document.querySelector('.popup__input_type_name')
 const aboutInput = document.querySelector('.popup__input_type_about')
 const addButton = document.querySelector('.profile__add-button')
 const formAddElement = document.querySelector('.popup-add__form')
-const userName = document.querySelector('.profile__name')
-const userInfo = document.querySelector('.profile__about')
-const userAvatar = document.querySelector('.profile__avatar')
 const formAvatarChange = document.querySelector('.popup-avatar__form')
 const avatarOverlay= document.querySelector('.profile__avatar-overlay')
 
@@ -33,36 +30,43 @@ const optionsApi = {
 
 const api = new Api(optionsApi)
 
-api.getUserInfo()
-.then((res) => {
-  userName.textContent = res.name;
-  userInfo.textContent = res.about;
-  userAvatar.src = res.avatar
-})
-
+let myId = null;
 
 const cardList = new Section ({
   renderer: (data) => {
-    const card = createCard(data);
-    cardList.addItem(card)
+    const card = createCard(data)
+    if (data.owner._id === myId) {
+      cardList.addMyItem(card)
+    } cardList.addItem(card)
   },
 },
 '.elements'
 )
 
-api.getCards()
-.then((res) => {
-  cardList.renderItems(res);
+Promise.all([api.getUserInfo(), api.getCards()])
+.then (([userInfo, cardsArray]) => {
+  profile.setUserInfo(userInfo);
+  profile.setUserAvatar(userInfo);
+  myId = userInfo._id;
+  cardList.renderItems(cardsArray);
+})
+.catch((err) => {
+  console.log(err);
 })
 
 const popupAddCard = new PopupWithForm({
   popupSelector: '.popup-add', 
   submitForm: (data) => {
+    popupAddCard.renderLoading(true)
     api.postNewCard(data)
     .then((res) => {
       const card = createCard(res)
-      cardList.addItem(card)
+      cardList.addMyItem(card)
+      popupAddCard.close()
     }) 
+    .catch((err) => {
+      console.log(err)
+    })
   }
 })
 
@@ -71,9 +75,14 @@ const profile = new UserInfo({nameSelector: '.profile__name', infoSelector: '.pr
 const popupEditProfile = new PopupWithForm({
  popupSelector: '.popup-edit', 
  submitForm: (data) => {
+  popupEditProfile.renderLoading(true)
   api.patchUserInfo(data)
   .then((res) => {
     profile.setUserInfo(res)
+    popupEditProfile.close()
+  })
+  .catch((err) => {
+    console.log(err)
   })
 }
  })
@@ -81,10 +90,15 @@ const popupEditProfile = new PopupWithForm({
  const popupAvatar = new PopupWithForm({
   popupSelector: '.popup-avatar', 
   submitForm: (data) => { 
+   popupAvatar.renderLoading(true) 
    api.patchUserAvatar(data)
    .then((res) => {
     profile.setUserAvatar(res)
+    popupAvatar.close()
    })
+   .catch((err) => {
+    console.log(err)
+  })
  }
   })
 
@@ -106,6 +120,7 @@ const validationAvatarForm = new FormValidator(validationConfig, formAvatarChang
 validationAvatarForm.enableValidation();
 
 editButton.addEventListener('click', () => {
+  popupEditProfile.renderLoading(false);
   popupEditProfile.open();
   const userInfo = profile.getUserInfo();
   nameInput.value = userInfo.name
@@ -114,11 +129,13 @@ editButton.addEventListener('click', () => {
 })
 
 addButton.addEventListener('click', () => {
+  popupAddCard.renderLoading(false)
   popupAddCard.open();
   validationAddForm.resetValidation();
 })
 
 avatarOverlay.addEventListener('click', () => {
+  popupAvatar.renderLoading(false)
   popupAvatar.open();
   validationAvatarForm.resetValidation();
 })
@@ -130,23 +147,34 @@ function createCard(data) {
     api.deleteCard(id)
       .then(() => {
         card._deleteCard()
-  }))
+        popupDelete.close()
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  )
 }, (id) => {
   api.likeCard(id)
   .then ((res) => {
     card._likesTotal(res.likes.length ++)
   })
+  .catch((err) => {
+    console.log(err)
+  })
 }, (id) => {
   api.unlikeCard(id)
   .then ((res) => {
-    console.log(res)
     if (!res.likes.length === 0) {
     card._likesTotal(res.likes.length --)
     } else { 
       card._likesTotal(res.likes.length)
     }
   })
-});
+  .catch((err) => {
+    console.log(err)
+  })
+}, myId
+);
   const cardElement = card.generateCard();
   return cardElement
 }

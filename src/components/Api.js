@@ -4,38 +4,30 @@ class Api {
     this._headers = headers 
   }
 
-getUserInfo() {
-  return fetch(`${this._url}/users/me`, {
-    headers: this._headers
-  })
+_ifResOk(url, options) {
+  return fetch(url, options)
   .then((res) => {
     if (res.ok) {
       return res.json()
     }
-    throw new Error('Ошибка запроса получения информации о пользователе')
+    throw new Error(`Ошибка: ${res.status}`)
   })
-  .catch((err) => {
-    console.log(err)
+}
+  
+getUserInfo() {
+  return this._ifResOk(`${this._url}/users/me`, {
+    headers: this._headers
   })
 }
 
 getCards() {
-  return fetch(`${this._url}/cards`, {
+  return this._ifResOk(`${this._url}/cards`, {
     headers: this._headers
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса получения карточек')
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
 patchUserInfo({name, info}) {
-  return fetch(`${this._url}/users/me`, {
+  return this._ifResOk(`${this._url}/users/me`, {
     method: "PATCH",
     headers: this._headers,
     body: JSON.stringify({
@@ -43,19 +35,10 @@ patchUserInfo({name, info}) {
       about: info
     })
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса на изменение данных профиля')
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 postNewCard({name, link}) {
-  return fetch(`${this._url}/cards`, {
+  return this._ifResOk(`${this._url}/cards`, {
     method: "POST",
     headers: this._headers,
     body: JSON.stringify({
@@ -63,81 +46,36 @@ postNewCard({name, link}) {
       link: link
     })
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса на создание новой карточки')
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 deleteCard(id) {
-  return fetch(`${this._url}/cards/${id}`, {
+  return this._ifResOk(`${this._url}/cards/${id}`, {
     method: "DELETE",
     headers: this._headers,
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса на удаление карточки')
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
 likeCard(id) {
-  return fetch(`${this._url}/cards/${id}/likes`, {
+  return this._ifResOk(`${this._url}/cards/${id}/likes`, {
     method: "PUT",
     headers: this._headers,
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса на лайк карточки')
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
 unlikeCard(id) {
-  return fetch(`${this._url}/cards/${id}/likes`, {
+  return this._ifResOk(`${this._url}/cards/${id}/likes`, {
     method: "DELETE",
     headers: this._headers,
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса на удаление лайка карточки')
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
 patchUserAvatar({link}) {
-  return fetch(`${this._url}/users/me/avatar`, {
+  return this._ifResOk(`${this._url}/users/me/avatar`, {
     method: "PATCH",
     headers: this._headers,
     body: JSON.stringify({
       avatar: link
     })
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    throw new Error('Ошибка запроса на изменение аватара профиля')
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 

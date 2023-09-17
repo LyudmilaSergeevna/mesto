@@ -1,8 +1,9 @@
 class Card {
-  constructor({name, link, _id, likes,owner }, templateSelector, handleCardClick, handleDeleteClick, likeCard, unlikeCard) {
+  constructor({name, link, _id, likes, owner}, templateSelector, handleCardClick, handleDeleteClick, likeCard, unlikeCard, myId) {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._myId = myId;
     this._likes = likes;
     this._owner = owner;
     this._templateSelector = templateSelector;
@@ -33,6 +34,7 @@ class Card {
     this._likeTotal = this._element.querySelector('.element__like-total');
     this._likeTotal.value = this._likes.length;
     this._getId();
+    this._getLikes();
     this._setEventListeners();
     this._cardImage.src = this._link;
     this._cardImage.alt = `Изoбражение ${this._name}`;
@@ -75,10 +77,23 @@ class Card {
   }
 
   _getId() {
-  const myId = 'ff3a94ef6f31188899f3c37a';
-  if (this._owner._id !== myId) {
+  if (this._owner._id !== this._myId) {
   this._deleteButton.setAttribute("style", "display: none;")    
   }
+}
+
+ _getIdi() {
+  if (this._owner._id !== this._myId) {
+    console.log(this._myId)    
+    }
+ }  
+
+  _getLikes() {
+  this._likes.forEach((like) => {
+    if (like._id === this._myId) {
+      this._heartButton.classList.add('element__heart-button_active')
+    }
+  })
 }
   
 }
